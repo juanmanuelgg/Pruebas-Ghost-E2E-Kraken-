@@ -20,7 +20,7 @@
  y ejecutar <b>npm install -g @cucumber/cucumber@7.2.1</b> y
  <b> npm install @cucumber/cucumber@7.2.1</b>
  </li>
-
+<li>Cambiar las credenciales de loggin en el archivo properties.json, tambien asegurarse de que la aplicacion ghost corra por el puerto 3001</li>
  <li>Arrastrar una funcionalidad .feature de la carpeta <b>/all_features</b> a la carpeta <b>/features</b>
  </li>
 
