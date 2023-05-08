@@ -1,0 +1,24 @@
+Feature: cambiar contraseña
+
+@user1 @web
+Scenario: Con mi usuario de ghost deseo cambiar contraseña
+  Given I navigate to page "http://localhost:8081/ghost/"
+  And I wait for 2 seconds
+  When I enter login email "<USERNAME1>"
+  And I wait for 1 seconds
+  And I enter login password "<PASSWORD1>"
+  And I wait for 1 seconds
+  And I submit login  
+  Then I wait for 2 seconds
+  And I clic avatar
+  And I wait for 2 seconds
+  And I clic img
+  And I wait for 2 seconds
+  And I enter old password "<PASSWORD1>"
+  And I wait for 2 seconds
+  And I enter new password "<PASSWORDNEW>"
+  And I wait for 2 seconds
+  And I enter verification password "<PASSWORDNEW>"
+  And I wait for 2 seconds
+  And I clic save password
+  And I wait for 7 seconds

@@ -142,3 +142,100 @@ When('I change the role',async function(){
     const element=await this.driver.$(`option[value='6457302b5ab6ff0001fba499']`).setValue("No tiene sentido");    
     return element;
 })
+
+//Aqui Luz
+
+Then('I enter title post {kraken-string}', async function (title) {
+    let element = await this.driver.$('div > textarea.gh-editor-title.ember-text-area.gh-input.ember-view');
+    return await element.setValue(title);
+});
+
+Then('I enter detail post {kraken-string}', async function (detail) {
+    let element = await this.driver.$('div.koenig-editor__editor.__mobiledoc-editor');
+    return await element.setValue(detail);
+});
+
+Then('I click post', async function() {
+    let element = await this.driver.$('ol.posts-list.gh-list >  li:nth-child(2)'); 
+    return await element.click(); 
+});
+
+Then('I enter title post edit {kraken-string}', async function (titleEdit) {
+    let element = await this.driver.$('div > textarea.gh-editor-title.ember-text-area.gh-input.ember-view');
+    return await element.setValue(titleEdit);
+});
+
+Then('I enter detail post edit {kraken-string}', async function (detailPostEdit) {
+    let element = await this.driver.$('div.koenig-editor__editor.__mobiledoc-editor');
+    return await element.setValue(detailPostEdit);
+});
+
+Then('I click filter', async function() {
+    let element =  await this.driver.$('div.ember-view.ember-basic-dropdown-trigger.ember-power-select-trigger.gh-contentfilter-menu-trigger');   
+    return await element.click();  
+});
+Then('I click filter for publish', async function() {
+    let element =  await this.driver.$('ul >  li:nth-child(3)');   
+    return await element.click();  
+});
+
+Then('I clic avatar', async function() {
+    let element = await this.driver.$('div.gh-user-avatar.relative'); 
+    return await element.click(); 
+});
+
+Then('I clic img', async function() {
+    let element = await this.driver.$('ul.dropdown-menu.dropdown-triangle-top >  li:nth-child(4)'); 
+    return await element.click(); 
+});
+
+Then('I enter new name {kraken-string}', async function (name) {
+    let element = await this.driver.$('input#user-name');
+    return await element.setValue(name);
+});
+
+Then('I clic save', async function() {
+    let element = await this.driver.$('button.gh-btn.gh-btn-blue.gh-btn-icon.ember-view'); 
+    return await element.click(); 
+});
+
+Then('I enter old password {kraken-string}', async function (passwordNew) {
+    let element = await this.driver.$('input#user-password-old');
+    return await element.setValue(passwordNew);
+});
+
+Then('I enter new password {kraken-string}', async function (passwordNew) {
+    let element = await this.driver.$('input#user-password-new');
+    return await element.setValue(passwordNew);
+});
+
+Then('I enter verification password {kraken-string}', async function (passwordNew) {
+    let element = await this.driver.$('input#user-new-password-verification');
+    return await element.setValue(passwordNew);
+});
+
+Then('I clic save password', async function() {
+    let element = await this.driver.$('button.gh-btn.gh-btn-icon.button-change-password.gh-btn-red.ember-view'); 
+    return await element.click(); 
+});
+
+Then('I click publish', async function() {
+    let element = await this.driver.$('section.view-actions.br2.bg-white'); 
+    return await element.click(); 
+});
+
+Then('I click opcion publish', async function() {
+    let element = await this.driver.$('button.gh-btn.gh-btn-blue.gh-publishmenu-button.gh-btn-icon.ember-view'); 
+    return await element.click(); 
+});
+
+Then('I clic post unpublished', async function() {
+    let element = await this.driver.$('div.gh-publishmenu-radio-content >  div:nth-child(1)'); 
+    return await element.click(); 
+});
+
+Then('I save post unpublished', async function() {
+    let element = await this.driver.$('button.gh-btn.gh-btn-blue.gh-publishmenu-button.gh-btn-icon.ember-view'); 
+    return await element.click(); 
+});
+

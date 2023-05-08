@@ -1,6 +1,12 @@
 {
-    "USERNAME1": "jimenezcelisj2@gmail.com",
-    "PASSWORD1": "12345678910",
+    "USERNAME1": "ls.ochoa@uniandes.edu.co",
+    "PASSWORD1": "D1r3ct0r4t1???",
     "USERNAME2": "jimenezcelisj2@gmail.com",
-    "PASSWORD2": "fiduciaria2022"
+    "PASSWORD2": "fiduciaria2022",   
+    "TITLEPOST": "Maestría en Educación Matemática",
+    "DETAILPOST": "El programa tiene como propósito contribuir a la capacidad del estudiante para diseñar.....",
+    "TITLEPOSTEDIT":"Titulo Editado",
+    "DETAILPOSTEDIT":"Editar el detalle del Post.....",
+    "NAME":"Pepito Perez",
+    "PASSWORDNEW":"D1r3ct0r4t1?"
 }
