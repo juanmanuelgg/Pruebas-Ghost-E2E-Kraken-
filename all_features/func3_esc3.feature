@@ -23,4 +23,4 @@ Scenario: Con mi usuario de ghost quiero enviar una invitacion a un email ya exi
   And I wait for 1 seconds
   And I send invitation 
   And I wait for 6 seconds
-  Then I should have email was alredy error message
+  Then I should have email error message "A user with that email address was already invited."
