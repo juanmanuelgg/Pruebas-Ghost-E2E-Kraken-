@@ -27,3 +27,10 @@
   <li>Ejecutar el comando<b>npx kraken-node run</b> , esto ejecutar el escenario correspondiente.
  </li>
  </ul>
+<h2>Integrantes</h2>
+<ul>
+<li>Juan Manuel Jimenez Celis</li>
+<li>Andres Felipe Lombo Caicedo</li>
+<li>Luz estella Ochoa</li>
+<li>Juan Manuel Gonzales</li>
+</ul>
