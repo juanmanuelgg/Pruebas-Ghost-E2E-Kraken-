@@ -4,38 +4,37 @@ const fs = require("fs");
 const path = require("path");
 
 const { viewportHeight, viewportWidth, folders, options } = config;
+const Ghost3 = config.urlIni;
+const Ghost4 = config.urlCom;
 
 async function executeTest() {
-  const Ghost3 = config.urlIni;
-  const Ghost4 = config.urlCom;
-
-  await leerDirectorios(Ghost3, Ghost4);
-}
-
-(async () => console.log(await executeTest()))();
-
-async function leerDirectorios(Ghost3, Ghost4) {
+  const respuesta = {};
   const promesas = [leerDirectorio(Ghost3), leerDirectorio(Ghost4)];
 
-  try {
-    const resultados = await Promise.all(promesas);
-    const contenidoDir3 = resultados[0];
-    const contenidoDir4 = resultados[1];
-    for (let f = 0; f < 10; f++) {
+  const resultados = await Promise.all(promesas);
+  const contenidoDir3 = resultados[0];
+  const contenidoDir4 = resultados[1];
+
+  for (let f = 0; f < 10; f++) {
+    try {
+      if (`${contenidoDir3[f]}` !== `${contenidoDir4[f]}`) {
+        console.error("Los nombres de los directorios no coinciden");
+        continue;
+      }
+      const nombreDirectorio = contenidoDir3[f];
+
       const promesas = [
-        leerDirectorio(`./screenshots/GHOST-3-41-1/${contenidoDir3[f]}`),
-        leerDirectorio(`./screenshots/GHOST-4-44-0/${contenidoDir4[f]}`),
+        leerDirectorio(`${Ghost3}/${nombreDirectorio}`),
+        leerDirectorio(`${Ghost4}/${nombreDirectorio}`),
       ];
       const subresult = await Promise.all(promesas);
       const G3 = subresult[0];
       const G4 = subresult[1];
       let resultInfo = {};
       for (b of G4) {
-        console.log(`${Ghost3}/${contenidoDir3[f]}/${b}`);
-        console.log(`${Ghost4}/${contenidoDir4[f]}/${b}`);
         const data = await compareImages(
-          `${Ghost3}/${contenidoDir3[f]}/${b}`,
-          `${Ghost4}/${contenidoDir4[f]}/${b}`,
+          `${Ghost3}/${nombreDirectorio}/${b}`,
+          `${Ghost4}/${nombreDirectorio}/${b}`,
           options
         );
 
@@ -48,91 +47,107 @@ async function leerDirectorios(Ghost3, Ghost4) {
           analysisTime: data.analysisTime,
         };
 
-        const folder = "./screenshots/compare/";
+        const folder = `./screenshots/compare/${nombreDirectorio}`;
         if (!fs.existsSync(folder)) {
           fs.mkdir(folder, { recursive: true }, (err) => {
             if (err) throw err;
           });
         }
+        fs.writeFileSync(`${folder}/${b}`, data.getBuffer());
 
-        fs.writeFileSync(
-          `./screenshots/compare/compare-${G3[b]}.png`,
-          data.getBuffer()
-        );
+        // Ver progreso
+        console.log(`${Ghost3}/${nombreDirectorio}/${b}`);
+        console.log(`${Ghost4}/${nombreDirectorio}/${b}`);
+        console.log(`${folder}/${b}`);
+        console.log("----------------------------------");
       }
-
-      let datetime = new Date().toISOString().replace(/:/g, "");
-      fs.writeFileSync(
-        `../docs/${datetime}/report.html`,
-        createReport(datetime, resultInfo)
-      );
-      fs.copyFileSync("./index.css", `../docs/${datetime}/index.css`);
-
-      console.log(
-        "------------------------------------------------------------------------------------"
-      );
-      console.log(
-        "Execution finished. Check the report under the results folder"
-      );
-      return resultInfo;
+      respuesta[nombreDirectorio] = resultInfo;
+    } catch (error) {
+      console.error("Error al procesar las comparaciones:", error);
     }
-  } catch (error) {
-    console.error("Error al procesar las comparaciones:", error);
-  }
+  } // rof </recorrer escenarios>
+
+  return respuesta;
 }
 
 function leerDirectorio(dir) {
   return new Promise((resolve, reject) => {
     fs.readdir(dir, (error, archivos) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(archivos);
-      }
+      if (error) reject(error);
+      else resolve(archivos);
     });
   });
 }
 
-function browser(b, info) {
-  return `<div class=" browser" id="test0">
+function screenshot(nombreDirectorio, imagen) {
+  return `
+  <div class="browser" id="test0">
     <div class=" btitle">
-        <h2>Browser: ${b}</h2>
-        <p>Data: ${JSON.stringify(info)}</p>
+        <h3>Browser: ${imagen}</h3>
     </div>
     <div class="imgline">
       <div class="imgcontainer">
-        <span class="imgname">Reference</span>
-        <img class="img2" src="before-${b}.png" id="refImage" label="Reference">
+        <span class="imgname">Referencia ${Ghost3}</span>
+        <img class="img2" src="${Ghost3}/${nombreDirectorio}/${imagen}" id="refImage" label="Reference">
       </div>
       <div class="imgcontainer">
-        <span class="imgname">Test</span>
-        <img class="img2" src="after-${b}.png" id="testImage" label="Test">
+        <span class="imgname">Test ${Ghost4}</span>
+        <img class="img2" src="${Ghost4}/${nombreDirectorio}/${imagen}" id="testImage" label="Test">
       </div>
     </div>
     <div class="imgline">
       <div class="imgcontainer">
         <span class="imgname">Diff</span>
-        <img class="imgfull" src="./compare-${b}.png" id="diffImage" label="Diff">
+        <img class="imgfull" src="./screenshots/compare/${nombreDirectorio}/${imagen}" id="diffImage" label="Diff">
       </div>
     </div>
-  </div>`;
+  </div>
+  `;
 }
 
-function createReport(datetime, resInfo) {
+function directorio(nombreDirectorio, respuesta) {
   return `
-    <html>
-        <head>
-            <title> VRT Report </title>
-            <link href="index.css" type="text/css" rel="stylesheet">
-        </head>
-        <body>
-            <h1>Report for 
-                 <a href="${config.urlIni}"> ${config.urlIni}</a>
-            </h1>
-            <p>Executed: ${datetime}</p>
-            <div id="visualizer">
-                ${config.browsers.map((b) => browser(b, resInfo[b]))}
-            </div>
-        </body>
-    </html>`;
+  <h2>${nombreDirectorio}</h2>
+  ${Object.keys(respuesta[nombreDirectorio]).map((imagen) => {
+    return screenshot(nombreDirectorio, imagen);
+  })}
+  `;
 }
+
+function createReport(datetime, respuesta) {
+  return `
+  <html>
+    <head>
+      <title> VRT Report </title>
+      <link href="index.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+      <h1>Reporte para 
+        <a href="${Ghost3}"> ${Ghost3}</a>
+        <a href="${Ghost4}"> ${Ghost4}</a>
+      </h1>
+      <p>Executado: ${datetime}</p>
+      <div id="visualizer">
+        ${Object.keys(respuesta).map((nombreDirectorio) => {
+          return directorio(nombreDirectorio, respuesta);
+        })}
+      </div>
+    </body>
+  </html>
+  `;
+}
+
+async function main() {
+  const respuesta = await executeTest();
+  console.log(respuesta);
+
+  const datetime = new Date().toISOString().replace(/:/g, "");
+  const report = createReport(datetime, respuesta);
+  fs.writeFileSync(`../docs/index.html`, report);
+  fs.copyFileSync("./index.css", `../docs/index.css`);
+  fs.cpSync("./screenshots", `../docs/screenshots`, { recursive: true });
+
+  console.log("-------------------------------------------------------------");
+  console.log("Execution finished. Check the report under the results folder");
+}
+main();
