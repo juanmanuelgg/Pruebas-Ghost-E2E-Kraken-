@@ -23,19 +23,19 @@ async function leerDirectorios(Ghost3, Ghost4) {
     const contenidoDir4 = resultados[1];
     for (let f = 0; f < 10; f++) {
       const promesas = [
-        leerDirectorio(`./screenshot/GHOST-3-41-1/${contenidoDir3[f]}`),
-        leerDirectorio(`./screenshot/GHOST-4-44-0/${contenidoDir4[f]}`),
+        leerDirectorio(`./screenshots/GHOST-3-41-1/${contenidoDir3[f]}`),
+        leerDirectorio(`./screenshots/GHOST-4-44-0/${contenidoDir4[f]}`),
       ];
       const subresult = await Promise.all(promesas);
       const G3 = subresult[0];
       const G4 = subresult[1];
       let resultInfo = {};
       for (b of G4) {
-        console.log(`${Ghost4}/${contenidoDir3[f]}/${b}`);
-
+        console.log(`${Ghost3}/${contenidoDir3[f]}/${b}`);
+        console.log(`${Ghost4}/${contenidoDir4[f]}/${b}`);
         const data = await compareImages(
-          await fs.readFile(`${Ghost3}/${contenidoDir3[f]}/${b}`),
-          await fs.readFile(`${Ghost4}/${contenidoDir4[f]}/${b}`),
+          `${Ghost3}/${contenidoDir3[f]}/${b}`,
+          `${Ghost4}/${contenidoDir4[f]}/${b}`,
           options
         );
 
@@ -48,19 +48,25 @@ async function leerDirectorios(Ghost3, Ghost4) {
           analysisTime: data.analysisTime,
         };
 
-        const folde = "./screenshots/compare/";
-        if (!fs.existsSync(folde)) {
-          fs.mkdir(folde, { recursive: true });
+        const folder = "./screenshots/compare/";
+        if (!fs.existsSync(folder)) {
+          fs.mkdir(folder, { recursive: true }, (err) => {
+            if (err) throw err;
+          });
         }
-        fs.writeFileSync(`./campare/compare-${G3[b]}.png`, data.getBuffer());
+
+        fs.writeFileSync(
+          `./screenshots/compare/compare-${G3[b]}.png`,
+          data.getBuffer()
+        );
       }
 
       let datetime = new Date().toISOString().replace(/:/g, "");
       fs.writeFileSync(
-        `./results/${datetime}/report.html`,
+        `../docs/${datetime}/report.html`,
         createReport(datetime, resultInfo)
       );
-      fs.copyFileSync("./index.css", `./results/${datetime}/index.css`);
+      fs.copyFileSync("./index.css", `../docs/${datetime}/index.css`);
 
       console.log(
         "------------------------------------------------------------------------------------"
@@ -71,7 +77,7 @@ async function leerDirectorios(Ghost3, Ghost4) {
       return resultInfo;
     }
   } catch (error) {
-    console.error("Error al leer los directorios:", error);
+    console.error("Error al procesar las comparaciones:", error);
   }
 }
 
