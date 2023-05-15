@@ -90,11 +90,11 @@ When('I enter existing tag name',async function(){
     return await element.setValue(existing_tag_name);
 })
 
-When('I click on the {string} function',async function(function_val){
+When('I click on the {kraken-string} function',async function(function_val){
     let element=await this.driver.$(`a[href="#/${function_val}/"]`);
     return await element.click();
 });
-When('I should have this {string} button',async function(button_val){
+When('I should have this {kraken-string} button',async function(button_val){
     let element=await this.driver.$(`.${button_val}`);
     return await element;
 })
@@ -142,8 +142,6 @@ When('I change the role',async function(){
     const element=await this.driver.$(`option[value='6457302b5ab6ff0001fba499']`).setValue("No tiene sentido");    
     return element;
 })
-
-//Aqui Luz
 
 Then('I enter title post {kraken-string}', async function (title) {
     let element = await this.driver.$('div > textarea.gh-editor-title.ember-text-area.gh-input.ember-view');
@@ -195,7 +193,7 @@ Then('I enter new name {kraken-string}', async function (name) {
 });
 
 Then('I clic save', async function() {
-    let element = await this.driver.$('button.gh-btn.gh-btn-blue.gh-btn-icon.ember-view'); 
+    let element = await this.driver.$('button.gh-btn.gh-btn-primary.gh-btn-icon.ember-view'); 
     return await element.click(); 
 });
 
@@ -220,12 +218,17 @@ Then('I clic save password', async function() {
 });
 
 Then('I click publish', async function() {
-    let element = await this.driver.$('section.view-actions.br2.bg-white'); 
+    let element = await this.driver.$('div.gh-publishmenu.ember-view'); 
     return await element.click(); 
 });
 
 Then('I click opcion publish', async function() {
-    let element = await this.driver.$('button.gh-btn.gh-btn-blue.gh-publishmenu-button.gh-btn-icon.ember-view'); 
+    let element = await this.driver.$('button.gh-btn.gh-btn-black.gh-publishmenu-button.gh-btn-icon.ember-view'); 
+    return await element.click(); 
+});
+
+Then('I confirm post publication', async function() {
+    let element = await this.driver.$('button.gh-btn.gh-btn-black.gh-btn-icon.ember-view'); 
     return await element.click(); 
 });
 
@@ -235,7 +238,7 @@ Then('I clic post unpublished', async function() {
 });
 
 Then('I save post unpublished', async function() {
-    let element = await this.driver.$('button.gh-btn.gh-btn-blue.gh-publishmenu-button.gh-btn-icon.ember-view'); 
+    let element = await this.driver.$('button.gh-btn.gh-btn-black.gh-publishmenu-button.gh-btn-icon.ember-view'); 
     return await element.click(); 
 });
 

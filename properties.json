@@ -1,12 +1,15 @@
 {
-    "USERNAME1": "ls.ochoa@uniandes.edu.co",
-    "PASSWORD1": "D1r3ct0r4t1???",
-    "USERNAME2": "jimenezcelisj2@gmail.com",
-    "PASSWORD2": "fiduciaria2022",   
-    "TITLEPOST": "Maestría en Educación Matemática",
-    "DETAILPOST": "El programa tiene como propósito contribuir a la capacidad del estudiante para diseñar.....",
+    "USERNAME1": "automatizacion@appbajopruebas.com",
+    "PASSWORD1": "tJnAQA#T632v#cD???",
+    "USERNAME2": "automatizacion@appbajopruebas.com",
+    "PASSWORD2": "tJnAQA#T632v#cD???",   
+    "TITLEPOST": "Inteligencia artificial",
+    "DETAILPOST": "La inteligencia artificial (IA), en el contexto de las ciencias de la computaci....",
     "TITLEPOSTEDIT":"Titulo Editado",
     "DETAILPOSTEDIT":"Editar el detalle del Post.....",
-    "NAME":"Pepito Perez",
-    "PASSWORDNEW":"D1r3ct0r4t1?"
+    "NAME":"Nombre Cambiado",
+    "PASSWORDNEW":"tJnAQA#T632v#cD",
+    "URL":"http://localhost:3001/ghost/",
+    "POST":"http://localhost:3001/ghost/#/posts/",
+    "EDITORPOST":"http://localhost:3001/ghost/#/editor/post/"    
 }

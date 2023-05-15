@@ -1,8 +1,8 @@
-Feature: cambiar contraseña
+Feature: cambiar contraseña del perfil
 
 @user1 @web
-Scenario: Con mi usuario de ghost deseo cambiar contraseña
-  Given I navigate to page "http://localhost:8081/ghost/"
+Scenario: Cambiar contrasena
+  Given I navigate to page "<URL>"
   And I wait for 2 seconds
   When I enter login email "<USERNAME1>"
   And I wait for 1 seconds

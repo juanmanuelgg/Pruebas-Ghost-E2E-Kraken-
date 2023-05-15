@@ -2,7 +2,7 @@ Feature:Enviar e-mail de invitacion al staff
 
 @user1 @web
 Scenario: Con mi usuario de ghost quiero enviar una invitacion a un email ya existente en las invitaciones
-  Given I navigate to page "http://localhost:3001/ghost/"
+  Given I navigate to page "<URL>"
   And I wait for 2 seconds
   When I enter login email "<USERNAME1>"
   And I wait for 1 seconds

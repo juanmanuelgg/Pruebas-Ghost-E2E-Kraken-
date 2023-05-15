@@ -1,8 +1,8 @@
 Feature: editar full nombre perfil
 
 @user1 @web
-Scenario: Con mi usuario de ghost deseo editar el full nombre de perfil
-  Given I navigate to page "http://localhost:8081/ghost/"
+Scenario: Editar Full Name Perfil
+  Given I navigate to page "<URL>"
   And I wait for 2 seconds
   When I enter login email "<USERNAME1>"
   And I wait for 1 seconds
