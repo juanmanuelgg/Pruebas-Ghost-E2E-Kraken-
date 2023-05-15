@@ -47,10 +47,10 @@ Las pruebas se realizadoron bajo Kraken y para las Regresión Visual se utilizó
 
 # Instrucciones para ejecutar las pruebas de regresión visual
 
-´´´bash
+```bash
 npm install
 npm test
-´´´
+```
 
 # Video
 
