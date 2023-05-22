@@ -7,6 +7,10 @@
   },
   "dependencies": {
     "@cucumber/cucumber": "^7.2.1",
+    "axios": "^1.4.0",
+    "csv-parser": "^3.0.0",
+    "faker": "^6.6.6",
+    "fs": "^0.0.1-security",
     "kraken-node": "^1.0.24"
   }
 }
