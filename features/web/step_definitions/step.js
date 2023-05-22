@@ -3,6 +3,7 @@ const { faker } = require("@faker-js/faker");
 const fs = require("fs");
 const csv = require("csv-parser");
 const axios = require("axios");
+const { title } = require("process");
 
 //Pruebas con estrategía aleatoria
 module.exports = {
@@ -87,6 +88,12 @@ Then("I enter new name", async function () {
   return await element.setValue(name);
 });
 
+Then("I enter new email", async function () {
+  const email = faker.internet.email();
+  let element = await this.driver.$("input#user-email");
+  return await element.setValue(email);
+});
+
 Then("I enter new password one", async function () {
   const pass = faker.random.alpha(1);
   let element = await this.driver.$("input#user-password-new");
@@ -123,6 +130,87 @@ When("I enter tag-descripton-five-hundred-one", async function () {
   return await element.setValue(randomDesc);
 });
 
+When("I enter login incorrect password", async function () {
+  const password = faker.internet.password();
+  console.log(password);
+  let element = await this.driver.$("#ember9");
+  return await element.setValue(password);
+});
+
+Then("I enter title page", async function () {
+  const title = faker.lorem.text();
+  let element = await this.driver.$(
+    "div > textarea.gh-editor-title.ember-text-area.gh-input.ember-view"
+  );
+  return await element.setValue(title);
+});
+
+Then("I enter title page five-hundred-one", async function () {
+  const title = faker.random.alpha(501);
+  let element = await this.driver.$(
+    "div > textarea.gh-editor-title.ember-text-area.gh-input.ember-view"
+  );
+  return await element.setValue(title);
+});
+
+Then("I enter detail page", async function () {
+  const detail = faker.lorem.text();
+  let element = await this.driver.$(
+    "div.koenig-editor__editor.__mobiledoc-editor.__has-no-content"
+  );
+  return await element.setValue(detail);
+});
+
+Then("I random page", async function () {
+  let element = "";
+  const opcion = Math.floor(Math.random() * 4) + 1;
+  switch (opcion) {
+    case 1:
+      element = await this.driver.$('.ember-view[href="#/posts/"]');
+      return await element.click();
+      break;
+    case 2:
+      element = await this.driver.$('.ember-view[href="#/pages/"]');
+      return await element.click();
+      break;
+    case 3:
+      element = await this.driver.$('.ember-view[href="#/tags/"]');
+      return await element.click();
+      break;
+    default:
+      element = await this.driver.$('.ember-view[href="#/members/"]');
+      return await element.click();
+      break;
+  }
+});
+
+Then("I create new member", async function () {
+  let element = await this.driver.$('.ember-view[href="#/members/"]');
+  element.click();
+
+  let elementNew = await this.driver.$(
+    '.ember-view.gh-btn.gh-btn-primary[href="#/members/new/"]'
+  );
+  elementNew.click();
+
+  const name = faker.internet.userName();
+  let elementName = await this.driver.$("input#member-name");
+  await elementName.setValue(name);
+
+  const email = faker.internet.email();
+  let elementEmail = await this.driver.$("input#member-email");
+  await elementEmail.setValue(email);
+
+  const note = faker.lorem.text();
+  let elementNote = await this.driver.$("textarea#member-note");
+  await elementNote.setValue(note);
+
+  let save = await this.driver.$(
+    "button.gh-btn.gh-btn-primary.gh-btn-icon.ember-view"
+  );
+  return await save.click();
+});
+
 When("I enter login email {kraken-string}", async function (email) {
   let element = await this.driver.$("#ember8");
   return await element.setValue(email);
@@ -132,14 +220,6 @@ When("I enter login password {kraken-string}", async function (password) {
   let element = await this.driver.$("#ember9");
   return await element.setValue(password);
 });
-
-When(
-  "I enter login incorrect password {kraken-string}",
-  async function (password) {
-    let element = await this.driver.$("#ember10");
-    return await element.setValue(password);
-  }
-);
 
 When("I submit login", async function () {
   let element = await this.driver.$("#ember11");

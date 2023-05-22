@@ -1,5 +1,5 @@
 {
-  "USERNAME1": "automatizacion@appbajopruebas.com",
+  "USERNAME1": "Arvid85@gmail.com",
   "PASSWORD1": "tJnAQA#T632v#cD",
   "USERNAME2": "automatizacion@appbajopruebas.com",
   "PASSWORD2": "tJnAQA#T632v#cD",
@@ -12,5 +12,7 @@
   "URL": "http://localhost:3002/ghost/",
   "POST": "http://localhost:3002/ghost/#/posts/",
   "EDITORPOST": "http://localhost:3002/ghost/#/editor/post/",
+  "PAGE": "http://localhost:3002/ghost/#/pages/",
+  "EDITORPAGE": "http://localhost:3002/ghost/#/editor/page/",
   "FILEPATH": "../generate-data/aprioriLogin.csv"
 }
