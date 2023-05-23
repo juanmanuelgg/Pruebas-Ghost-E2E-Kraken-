@@ -61,7 +61,7 @@ npm test
 - Se trabaja con la versión 4.44.0 de Ghost
 - Para ejacutar cada escenario se debe arrastrar a la carpeta **features**
 
-# Las carpetas estan divididas segun la estrategia de generación de datos:
+# Las carpetas estan divididas segun la estrategia de generación de datos(Se utilizaron las 3 estrategías):
 
 ## all_feature/aleatorio-faker : En esta carpeta se encuentran los escenarios que se le aplicacan la estrategia aleatoria con la libreria de faker:
 
@@ -88,11 +88,21 @@ npm test
 
 ## all_feature/mockara-priori : En esta carpeta se encuentran los escenarios que utilizan la estrategia de a-priori utilizando us csv de Mockaroo y con escenarios outline:
 
+- login (Escenario que consume un csv de Mockarro, cada vez que se ejecuta toma un valor aleatorio del scv) puede tomar email y password correstos
+- login (Escenario que consume un csv de Mockarro, cada vez que se ejecuta toma un valor aleatorio del scv) puede tomar ambos incorrectos
+- login (Escenario que consume un csv de Mockarro, cada vez que se ejecuta toma un valor aleatorio del scv) puede tomar el email correcto y password incorrecto
+- login (Escenario que consume un csv de Mockarro, cada vez que se ejecuta toma un valor aleatorio del scv) puede tomar emil incorrecto y password incorrecto
+- login (Escenario que consume un csv de Mockarro, cada vez que se ejecuta toma un valor aleatorio del scv) puede tomar emil vacio y passwor incorrecto
+- login (Escenario que consume un csv de Mockarro, cada vez que se ejecuta toma un valor aleatorio del scv) puede tomar emil incorrecto y password vacio
+- login (Escenario que consume un csv de Mockarro, cada vez que se ejecuta toma un valor aleatorio del scv) puede tomar emil formato incorrecto y password vacio
+
 ## all_feature/escenarios-aleatorios : En esta carpeta se encuentran los escenarios que utilizan la estrategia de escenarios aleatorios. Estos realizan una accion aleatoria cada que se ejecutan:
 
 - navegacion (Escenario que permite navegar entre las paginas Post, Page, tags y members de forma aleatoria cada vez ue ejecutas el escenario)
 
 # Incidencias semana 7 (Ver la wiki)
+
+https://github.com/juanmanuelgg/Pruebas-Ghost-E2E-Kraken-/wiki/Incidencias-Semana-7
 
 # Trabajo con herramienta cypress en el siguiente link:
 

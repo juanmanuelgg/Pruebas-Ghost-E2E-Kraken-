@@ -2,6 +2,7 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 const { faker } = require("@faker-js/faker");
 const fs = require("fs");
 const csv = require("csv-parser");
+const data = [];
 const axios = require("axios");
 const { title } = require("process");
 
@@ -21,27 +22,20 @@ var existing_tag_name = "";
 var existing_email_staff = "";
 
 //Pruebas con estrategía a-priori
-Given("I read file CSV {kraken-string}", async function (filepath) {
-  console.log("Pasooo");
-
-  //const filePath = "aprioriLogin.csv";
-  const csvData = [];
-
-  fs.createReadStream(filepath)
-    .pipe(csv())
-    .on("data", (data) => {
-      csvData.push(row);
-      csvData.forEach((row) => {
-        const id = row.id;
-        const email = row.email;
-        const password = row.password;
+Given("I have data from {string}", async function (csvFilePath) {
+  return new Promise((resolve, reject) => {
+    fs.createReadStream(csvFilePath)
+      .pipe(csv())
+      .on("data", (row) => {
+        data.push(row);
+      })
+      .on("end", () => {
+        resolve();
+      })
+      .on("error", (error) => {
+        reject(error);
       });
-      console.log(data);
-    })
-    .on("end", () => {
-      // Finalización del procesamiento del archivo CSV
-      console.log("Lectura del archivo CSV finalizada");
-    });
+  });
 });
 
 //Pruebas con estrategía consumo API Mockaroo
@@ -184,6 +178,19 @@ Then("I random page", async function () {
   }
 });
 
+When("I enter login email CSV {string}", async function (email) {
+  const opcion = Math.floor(Math.random() * data.length) + 1;
+  console.log(email);
+  email = data[opcion].email;
+  let element = await this.driver.$("#ember8");
+  return await element.setValue(email);
+});
+
+When("I enter login password CSV {string}", async function (password) {
+  let element = await this.driver.$("#ember9");
+  return await element.setValue(password);
+});
+
 Then("I create new member", async function () {
   let element = await this.driver.$('.ember-view[href="#/members/"]');
   element.click();
@@ -212,6 +219,7 @@ Then("I create new member", async function () {
 });
 
 When("I enter login email {kraken-string}", async function (email) {
+  email = data[opcion].email;
   let element = await this.driver.$("#ember8");
   return await element.setValue(email);
 });
